@@ -1,5 +1,4 @@
 import { Schema, model } from "mongoose";
-import { IBook, IBookModel } from "../interfeces/book.interfaces";
 import { IUser, IUserModel } from "../interfeces/user.interfece";
 import { hashPassword } from "../../shared/passwordHash";
 

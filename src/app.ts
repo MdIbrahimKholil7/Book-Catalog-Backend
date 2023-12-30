@@ -4,14 +4,16 @@ import cors from "cors";
 
 import morgan from "morgan";
 import httpStatus from "http-status";
-import userRouter from "./app/routes/user.route";
+import userRoute from "./app/routes/user.route";
+import bookRoute from "./app/routes/book.route";
 app.use(cors());
 app.use(morgan("dev"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/user", userRouter);
+app.use("/user", userRoute);
+app.use("/book", bookRoute);
 
 // for testing purposes
 app.get("/", (req: Request, res: Response) => {

@@ -18,11 +18,15 @@ const BookSchema = new Schema<IBook>(
     },
     reviews: [
       {
-        user: Schema.Types.ObjectId,
+        user: {
+          type: Schema.Types.ObjectId,
+          required: true,
+          ref: "User",
+        },
         review: String,
-        ref: "User",
       },
     ],
+    img: String,
   },
   {
     timestamps: true,
