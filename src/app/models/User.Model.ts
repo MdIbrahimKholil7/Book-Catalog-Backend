@@ -24,6 +24,13 @@ const UserSchema = new Schema<IUser>(
   }
 );
 UserSchema.pre<IUserDocument>("save", async function (next) {
+  // Check if the user with the same email already exists
+  const existingUser = await UserModel.findOne({ email: this.email });
+  if (existingUser) {
+    // If user already exists, throw an error or handle it as needed
+    const error = new Error("User with this email already exists");
+    return next(error);
+  }
   if (this.password) {
     // Hash the password only if it has been modified (or is new)
     this.password = await hashPassword(this.password);
