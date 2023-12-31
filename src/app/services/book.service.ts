@@ -16,6 +16,16 @@ class BookService {
       .sort({ createdAt: -1 });
     return result;
   };
+  static getAllBookService = async (): Promise<IBook[]> => {
+    const result = await BookModel.find()
+      .populate({
+        path: "author",
+        select: "-password",
+      })
+
+      .sort({ createdAt: -1 });
+    return result;
+  };
   static getBookDetailsService = async (_id: string): Promise<IBook | null> => {
     const result = await BookModel.findById({ _id })
       .populate({
@@ -51,6 +61,10 @@ class BookService {
       { $push: { reviews: payload } },
       { new: true, upsert: true }
     );
+    return result;
+  };
+  static deleteBookService = async <T>(id: string) => {
+    const result = await BookModel.findOneAndDelete({ _id: id });
     return result;
   };
 }

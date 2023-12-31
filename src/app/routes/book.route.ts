@@ -7,7 +7,9 @@ const router = Router();
 
 router.post("/", authenticate, Book.createBook);
 router.get("/", Book.getBook);
+router.get("/all-book", Book.getAllBook);
 router.get("/:id", Book.getBookDetails);
 router.put("/:id", authenticate, Book.updateBook);
 router.post("/review/:id", authenticate, Book.addBookReview);
+router.delete("/delete/:id", authenticate, Book.deleteBook);
 export default router;

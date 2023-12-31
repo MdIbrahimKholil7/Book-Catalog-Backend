@@ -17,6 +17,7 @@ class User {
     });
   });
   static loginUser = catchAsync(async (req: Request, res: Response) => {
+    console.log({ body: req.body });
     const result = await UserService.loginUserService(req.body);
     const accessToken = generateAccessToken({ ...result });
     delete result.password;
