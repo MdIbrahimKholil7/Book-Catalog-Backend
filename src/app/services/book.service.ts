@@ -22,6 +22,9 @@ class BookService {
         path: "author",
         select: "-password",
       })
+      .populate({
+        path: "reviews.user",
+      })
       .limit(10)
       .sort({ createdAt: -1 });
     return result;
@@ -34,6 +37,19 @@ class BookService {
       { _id: id },
       { ...payload },
       { new: true }
+    );
+    return result;
+  };
+
+  static addReviewForBookService = async <T>(
+    id: string,
+    payload: Partial<T>
+  ) => {
+    console.log({ payload, id });
+    const result = await BookModel.findOneAndUpdate(
+      { _id: id },
+      { $push: { reviews: payload } },
+      { new: true, upsert: true }
     );
     return result;
   };

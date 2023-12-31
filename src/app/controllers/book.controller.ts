@@ -36,6 +36,16 @@ class Book {
     console.log({ result });
     res.status(httpStatus.OK).json(result);
   });
+  static addBookReview = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    console.log(req.body, id);
+    const result = await BookService.addReviewForBookService(id, {
+      ...req.body,
+      user: req.user._id,
+    });
+    console.log({ result });
+    res.status(httpStatus.OK).json(result);
+  });
 }
 
 export default Book;
