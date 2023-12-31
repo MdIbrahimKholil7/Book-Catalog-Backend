@@ -16,6 +16,27 @@ class BookService {
       .sort({ createdAt: -1 });
     return result;
   };
+  static getBookDetailsService = async (_id: string): Promise<IBook | null> => {
+    const result = await BookModel.findById({ _id })
+      .populate({
+        path: "author",
+        select: "-password",
+      })
+      .limit(10)
+      .sort({ createdAt: -1 });
+    return result;
+  };
+  static updateBookService = async <T>(
+    id: string,
+    payload: Partial<T>
+  ): Promise<IBook | null> => {
+    const result = await BookModel.findOneAndUpdate(
+      { _id: id },
+      { ...payload },
+      { new: true }
+    );
+    return result;
+  };
 }
 
 export default BookService;

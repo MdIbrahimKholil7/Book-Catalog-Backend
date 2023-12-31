@@ -5,8 +5,6 @@ import httpStatus from "http-status";
 
 class Book {
   static createBook = catchAsync(async (req: Request, res: Response) => {
-    console.log(req.body);
-    console.log(req.user);
     req.body.author = req.user._id;
     const result = await BookService.createBookService(req.body);
     res.status(httpStatus.CREATED).json({
@@ -16,10 +14,27 @@ class Book {
   });
   static getBook = catchAsync(async (req: Request, res: Response) => {
     const result = await BookService.getBookService();
-    res.status(httpStatus.CREATED).json({
+    console.log({ result });
+    res.status(httpStatus.OK).json({
       success: true,
       data: result,
     });
+  });
+  static getBookDetails = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const result = await BookService.getBookDetailsService(id);
+    console.log({ result });
+    res.status(httpStatus.OK).json({
+      success: true,
+      data: result,
+    });
+  });
+  static updateBook = catchAsync(async (req: Request, res: Response) => {
+    const { id } = req.params;
+    console.log(req.body, id);
+    const result = await BookService.updateBookService(id, req.body);
+    console.log({ result });
+    res.status(httpStatus.OK).json(result);
   });
 }
 

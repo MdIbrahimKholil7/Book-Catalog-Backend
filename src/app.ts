@@ -12,8 +12,8 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/user", userRoute);
-app.use("/book", bookRoute);
+app.use("/api/user", userRoute);
+app.use("/api/book", bookRoute);
 
 // for testing purposes
 app.get("/", (req: Request, res: Response) => {

@@ -7,4 +7,6 @@ const router = Router();
 
 router.post("/", authenticate, Book.createBook);
 router.get("/", Book.getBook);
+router.get("/:id", Book.getBookDetails);
+router.put("/:id", authenticate, Book.updateBook);
 export default router;
